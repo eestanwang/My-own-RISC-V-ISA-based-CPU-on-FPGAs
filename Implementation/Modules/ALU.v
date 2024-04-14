@@ -1,22 +1,28 @@
-module ALU (
-    input wire [ 1:0] ALU_ctrl,
-    input wire [31:0] ALU_operandA,
-    input wire [31:0] ALU_operandB,
-
-    output wire ALU_zero,
-    output reg [31:0] ALU_result
+/*
+control   instruction     operand
+  000       lw, sw, add     ADD
+  001       beq, sub        SUB
+  010       and             AND
+  011       or              OR
+  100       x
+  101       slt             SET LESS THAN
+  110       x
+  111       x
+*/
+module alu (
+    input [2:0] ctrl,
+    input [31:0] in_A,
+    input [31:0] in_B,
+    output result
 );
-  assign ALU_zero = (ALU_result == 0) ? 1 : 0;
+  always_comb begin
+    case (ctrl)
+      ALU_ADD : result = in_A + in_B;
+      ALU_SUB : result = in_A - in_B;
+      ALU_AND : result = in_A & in_B;
+      ALU_OR : result = in_A + in_B;
+      ALU_SLT : result = in_A + in_B;
+      default: result = {128{1'b0}};
+  endcase
 
-  always @(ALU_ctrl, ALU_operandA, ALU_operandB) begin
-    case (ALU_ctrl)
-      2'b00: ALU_result = ALU_operandA + ALU_operandB;  // Add
-      2'b01: ALU_result = ALU_operandA - ALU_operandB;  // Sub
-      2'b10: ALU_result = ALU_operandA & ALU_operandB;  // And
-      2'b11: ALU_result = ALU_operandA | ALU_operandB;  // Or
-
-      default: ALU_result = 0;
-    endcase
-  end
-
-endmodule  //ALU
+endmodule  //alu

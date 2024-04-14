@@ -3,3 +3,7 @@ ASCII stands for American Standard Code for Information Interchange. Computers c
 
 Below is the ASCII character table and this includes descriptions of the first 32 non-printing characters:
 <img src="./Imgs/asciifull.gif">
+
+
+### RISC-V Reference Card
+<a href="./RISCV_CARD.pdf">RISC-V Reference Card</a>

@@ -1,27 +1,43 @@
+`include "./headers/constants.v"
+
 module main_decoder (
+    // Instruction Opcode
     input wire [6:0] opcode,
 
-    output reg [1:0] imm_src,
-    output reg [1:0] result_src,
-    output reg [1:0] ALU_opcode,
-    output reg ALU_src,
-    output reg jump,
-    output reg jalr,
+    // Instruction Decode into Control Signals
+    output reg reg_wr,
+    output reg mem_wr,
+    output reg alu_src,
+    output reg pc_src,
     output reg branch,
-    output reg register_write,
-    output reg memory_write
+    output reg jalr,
+    output reg jump,
+    output reg [1:0] imm_src,
+    output reg [1:0] alu_opcode,
+    output reg [1:0] result_src
 );
+
   always_comb begin
     case (opcode)
-      // Load instruction (I)
-      7'b0000011: begin
-        register_write = 1;
+      LOAD_OPCODE: begin
+        reg_wr = 1'b1;
         imm_src = 2'b00;
-        ALU_src = 1;
-        memory_write = 0;
+        alu_src = 1'b1;
+        mem_wr = 1'b0;
         result_src = 2'b01;
-        branch = 1'b00;
-        ALU_opcode = 2'b00;
+        branch = 1'b0;
+        alu_opcode = 2'b00;
+        jump = 1'b0;
+        jalr = 1'b0;
+      end
+      STORE_OPCODE: begin
+        reg_wr = 1;
+        imm_src = 2'b00;
+        alu_src = 1;
+        mem_wr = 0;
+        result_src = 2'b01;
+        branch = 0;
+        alu_opcode = 2'b00;
         jump = 0;
         jalr = 0;
       end
