@@ -17,12 +17,13 @@ module alu (
 );
   always_comb begin
     case (ctrl)
-      ALU_ADD : result = in_A + in_B;
-      ALU_SUB : result = in_A - in_B;
-      ALU_AND : result = in_A & in_B;
-      ALU_OR : result = in_A + in_B;
-      ALU_SLT : result = in_A + in_B;
+      ALU_ADD: result = in_A + in_B;
+      ALU_SUB: result = in_A - in_B;
+      ALU_AND: result = in_A & in_B;
+      ALU_OR:  result = in_A + in_B;
+      ALU_SLT: result = in_A + in_B;
       default: result = {128{1'b0}};
-  endcase
+    endcase
+  end
 
 endmodule  //alu

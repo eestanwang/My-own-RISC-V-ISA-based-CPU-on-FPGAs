@@ -4,3 +4,4 @@ RISC-V is an open-source instruction set architecture (ISA), enabling the implem
 
 [RISC-V Interpreter](https://www.cs.cornell.edu/courses/cs3410/2019sp/riscv/interpreter/#)
 
+[RISC-V Assembler](https://riscvasm.lucasteske.dev)
